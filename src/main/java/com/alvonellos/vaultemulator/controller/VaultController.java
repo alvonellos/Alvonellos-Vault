@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1")
+@RequestMapping("/v1/vault/")
 @Log
 public class VaultController {
     private final VaultRepository vaultRepository;
@@ -26,29 +26,27 @@ public class VaultController {
         this.vaultService = vaultService;
     }
 
-    @GetMapping(value = "/vault/", produces = "application/json")
+    @GetMapping(value = "", produces = "application/json")
     public ResponseEntity<List<VaultEntity>> getAllEntities(
             @RequestHeader HttpHeaders headers, @RequestHeader(name = "X-Vault-Token") String token)  {
         log.info(String.format("%s provided token: %s for key %s", headers.getHost(), token, "/vault/"));
         return new ResponseEntity<>(vaultRepository.findAllByOrderByKeyAsc(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/vault/**", produces = "application/json")
-    public ResponseEntity<VaultEntity> getEntity(
+    @GetMapping(value = "**", produces = "application/json")
+    public ResponseEntity<Object> getEntity(
             @RequestHeader HttpHeaders headers, @RequestHeader(name = "X-Vault-Token") String token,
             HttpServletRequest request) {
         log.info(String.format("%s provided token: %s for key %s", headers.getHost(), token, request.getRequestURI()));
-        return new ResponseEntity<VaultEntity>(new VaultEntity(request.getRequestURI(), vaultRepository.findByKey(request.getRequestURI())), HttpStatus.OK);
+        return vaultService.findByKey(request.getRequestURI(), token);
     }
 
-
-    @PostMapping(value = "/vault/**", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "**", consumes = "application/json", produces = "application/json")
     public ResponseEntity<VaultEntity> postEntity(
             @RequestHeader HttpHeaders headers, @RequestHeader(name = "X-Vault-Token") String token,
             @RequestHeader(name = "X-Vault-Request", required = false) String vaultRequest, @RequestBody VaultEntity entity, HttpServletRequest request) {
         log.info(String.format("%s provided token %s for vault request %s with entity key: %s, value: %s", headers.getHost(), token, vaultRequest, request.getRequestURI(), entity));
         return vaultService.postEntity(entity, token, request.getRequestURI());
     }
-
 
 }

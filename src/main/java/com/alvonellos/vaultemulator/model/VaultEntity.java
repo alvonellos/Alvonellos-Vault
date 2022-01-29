@@ -18,19 +18,14 @@ public class VaultEntity {
     private String key;
     @JsonProperty
     private String secret;
-    private String path;
 
     public VaultEntity() {}
-
-    public String getPath() { return this.path; }
 
     @JsonGetter("key")
     public String getKey() { return this.key; }
 
     @JsonGetter("secret")
     public String getValue() { return this.secret; }
-
-    public void setPath(String path) { this.path = path; }
 
     @JsonSetter("key")
     public void setKey(String key) { this.key = key; }
