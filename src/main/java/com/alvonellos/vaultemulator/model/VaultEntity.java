@@ -1,7 +1,5 @@
 package com.alvonellos.vaultemulator.model;
 
-
-
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -13,29 +11,33 @@ import javax.persistence.Id;
 @Entity(name = "VAULT")
 @JsonPropertyOrder({"key", "secret"})
 public class VaultEntity {
-    @Id
-    @JsonProperty
-    private String key;
-    @JsonProperty
-    private String secret;
+  @Id @JsonProperty private String key;
+  @JsonProperty private String secret;
 
-    public VaultEntity() {}
+  public VaultEntity() {}
 
-    @JsonGetter("key")
-    public String getKey() { return this.key; }
+  @JsonGetter("key")
+  public String getKey() {
+    return this.key;
+  }
 
-    @JsonGetter("secret")
-    public String getValue() { return this.secret; }
+  @JsonGetter("secret")
+  public String getValue() {
+    return this.secret;
+  }
 
-    @JsonSetter("key")
-    public void setKey(String key) { this.key = key; }
+  @JsonSetter("key")
+  public void setKey(String key) {
+    this.key = key;
+  }
 
-    @JsonSetter("secret")
-    public void setValue(String secret) { this.secret = secret; }
+  @JsonSetter("secret")
+  public void setValue(String secret) {
+    this.secret = secret;
+  }
 
-    public VaultEntity(String key, String secret) {
-        this.key = key;
-        this.secret = secret;
-    }
-
+  public VaultEntity(String key, String secret) {
+    this.key = key;
+    this.secret = secret;
+  }
 }
