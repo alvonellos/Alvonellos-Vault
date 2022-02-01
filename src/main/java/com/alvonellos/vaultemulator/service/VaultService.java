@@ -1,6 +1,7 @@
 package com.alvonellos.vaultemulator.service;
 
 import com.alvonellos.vaultemulator.model.VaultEntity;
+import com.alvonellos.vaultemulator.model.request.VaultRequest;
 import com.alvonellos.vaultemulator.repository.VaultRepository;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.InitializingBean;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 /** VaultService service layer implementation */
@@ -17,11 +19,10 @@ import java.util.List;
 @Log
 public class VaultService implements InitializingBean {
 
+  private final VaultRepository vaultRepository;
   // Load the vault path from the properties file
   @Value("${com.alvonellos.vaultemulator.vaultpath}")
   String vaultPath;
-
-  public VaultRepository vaultRepository;
 
   /**
    * Autowired VaultService Constructor
@@ -38,13 +39,13 @@ public class VaultService implements InitializingBean {
    * @param entity the entity to add
    * @param token the token to check for authentication
    * @param requestURI the key path (obtained from requestURI)
-   * @return
+   * @return response
    */
-  public ResponseEntity<VaultEntity> postEntity(
-      VaultEntity entity, String token, String requestURI) {
-    entity.setKey(requestURI + "/" + entity.getKey());
+  public ResponseEntity<VaultRequest> postEntity(
+          VaultRequest entity, String token, String requestURI) {
     // TODO Implement authentication
-    vaultRepository.save(entity);
+    entity.setKey(requestURI + "/" + entity.getKey());
+    vaultRepository.save(new VaultEntity(entity));
     return new ResponseEntity<>(entity, HttpStatus.OK);
   }
 
@@ -57,7 +58,7 @@ public class VaultService implements InitializingBean {
    */
   public ResponseEntity<Object> findByKey(String requestURI, String token) {
     List<VaultEntity> entity = vaultRepository.findByKeyStartsWith(requestURI);
-    if (entity.size() == 0) {
+    if (entity.isEmpty()) {
       return new ResponseEntity<>("NOT FOUND", HttpStatus.NOT_FOUND);
     }
     // TODO: implement authentication
@@ -87,5 +88,16 @@ public class VaultService implements InitializingBean {
     vaultRepository.deleteAll();
     long countAfter = vaultRepository.count();
     return new ResponseEntity<>(countAfter < count, HttpStatus.OK);
+  }
+
+  public ResponseEntity<List<VaultEntity>> findAllSecrets(String token) {
+    //TODO: implement authentication
+    List<VaultEntity> entities = vaultRepository.findAllByOrderByKeyAsc();
+    if (entities.isEmpty()) {
+      return new ResponseEntity<>(
+          Collections.singletonList(new VaultEntity()), HttpStatus.NOT_FOUND);
+    } else {
+      return new ResponseEntity<>(entities, HttpStatus.OK);
+    }
   }
 }

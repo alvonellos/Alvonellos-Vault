@@ -1,7 +1,8 @@
 /Users/alex/git/HashicorpVaultEmulator/src/main/java/com/alvonellos/vaultemulator/controller/VaultController.java
 /Users/alex/git/HashicorpVaultEmulator/src/main/java/com/alvonellos/vaultemulator/model/VaultEntity.java
+/Users/alex/git/HashicorpVaultEmulator/src/main/java/com/alvonellos/vaultemulator/model/request/VaultRequest.java
 /Users/alex/git/HashicorpVaultEmulator/src/main/java/com/alvonellos/vaultemulator/repository/VaultRepository.java
-/Users/alex/git/HashicorpVaultEmulator/src/main/java/com/alvonellos/vaultemulator/SwaggerConfig.java
 /Users/alex/git/HashicorpVaultEmulator/src/main/java/com/alvonellos/vaultemulator/service/VaultService.java
 /Users/alex/git/HashicorpVaultEmulator/src/main/java/com/alvonellos/vaultemulator/VaultemulatorApplication.java
+/Users/alex/git/HashicorpVaultEmulator/src/main/java/com/alvonellos/vaultemulator/model/response/ErrorResponse.java
 /Users/alex/git/HashicorpVaultEmulator/src/main/java/com/alvonellos/vaultemulator/ServletInitializer.java

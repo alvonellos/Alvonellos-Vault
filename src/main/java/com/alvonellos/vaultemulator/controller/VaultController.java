@@ -1,6 +1,8 @@
 package com.alvonellos.vaultemulator.controller;
 
 import com.alvonellos.vaultemulator.model.VaultEntity;
+import com.alvonellos.vaultemulator.model.request.VaultRequest;
+import com.alvonellos.vaultemulator.model.response.ErrorResponse;
 import com.alvonellos.vaultemulator.repository.VaultRepository;
 import com.alvonellos.vaultemulator.service.VaultService;
 import lombok.extern.java.Log;
@@ -49,7 +51,7 @@ public class VaultController implements InitializingBean {
         String.format(
             "%s provided token: %s for key %s list: %s",
             headers.getHost(), token, "/vault/", list));
-    return new ResponseEntity<>(vaultRepository.findAllByOrderByKeyAsc(), HttpStatus.OK);
+    return vaultService.findAllSecrets(token);
   }
 
   /**
@@ -78,13 +80,13 @@ public class VaultController implements InitializingBean {
     if (namespace == null || namespace.equals("")) {
       return vaultService.findByKey(request.getRequestURI(), token);
     } else {
-      String calculatedPath =
-          vaultPath + namespace + "/" + request.getRequestURI().substring(vaultPath.length());
+      //String calculatedPath = vaultPath + namespace + "/" + request.getRequestURI().substring(vaultPath.length());
+      String calculatedPath = vaultPath + request.getRequestURI().substring(vaultPath.length());
 
       // Sometimes there's a problem where people do this, so let's just fix it.
       if (calculatedPath.contains("//")) {
         log.info("calculated path contains double //, correcting");
-        calculatedPath.replace("//", "/");
+        calculatedPath = calculatedPath.replace("//", "/");
       }
 
       log.info(
@@ -106,19 +108,23 @@ public class VaultController implements InitializingBean {
    * @return
    */
   @PostMapping(value = "**", consumes = "application/json", produces = "application/json")
-  public ResponseEntity<VaultEntity> postEntity(
+  public ResponseEntity<VaultRequest> postEntity(
       @RequestHeader HttpHeaders headers,
       @RequestHeader(name = "X-Vault-Token") String token,
       @RequestHeader(name = "X-Vault-Request", required = false) String vaultRequest,
-      @RequestBody VaultEntity entity,
+      @RequestBody VaultRequest entity,
       HttpServletRequest request) {
 
     log.info(
         String.format(
             "%s provided token %s for vault request %s with entity key: %s, value: %s",
             headers.getHost(), token, vaultRequest, request.getRequestURI(), entity));
-
-    return vaultService.postEntity(entity, token, request.getRequestURI());
+    try {
+      return vaultService.postEntity(entity, token, request.getRequestURI());
+    } catch (IllegalArgumentException e) {
+      log.info("Bad request creating vault entity");
+      return new ResponseEntity(new ErrorResponse("Bad request creating vault entity"), HttpStatus.BAD_REQUEST);
+    }
   }
 
     /**
