@@ -1,4 +1,8 @@
 com/alvonellos/vaultemulator/model/VaultEntity.class
+com/alvonellos/vaultemulator/model/response/ErrorResponse.class
 com/alvonellos/vaultemulator/service/VaultService.class
 com/alvonellos/vaultemulator/controller/VaultController.class
+com/alvonellos/vaultemulator/ServletInitializer.class
 com/alvonellos/vaultemulator/repository/VaultRepository.class
+com/alvonellos/vaultemulator/model/request/VaultRequest.class
+com/alvonellos/vaultemulator/VaultemulatorApplication.class

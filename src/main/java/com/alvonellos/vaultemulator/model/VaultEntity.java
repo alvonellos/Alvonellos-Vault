@@ -27,16 +27,6 @@ public class VaultEntity {
     return this.secret;
   }
 
-  @JsonSetter("key")
-  public void setKey(String key) {
-    this.key = key;
-  }
-
-  @JsonSetter("secret")
-  public void setValue(String secret) {
-    this.secret = secret;
-  }
-
   public VaultEntity(String key, String secret) {
     this.key = key;
     this.secret = secret;
