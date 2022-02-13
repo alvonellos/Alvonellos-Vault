@@ -50,7 +50,7 @@ public class VaultControllerTest {
     when(vaultRepository.findByKeyStartsWith(any()))
             .thenReturn(Collections.singletonList(mockVaultEntity()));
     ResponseEntity entity = vaultController.getEntity(mockHeaders(), mockToken(), mockNamespace(), mockRequestNoNameSpace());
-    verify(vaultService).findByKey(mockRequest().getRequestURI() + "/" + mockVaultEntity().getKey(), mockToken());
+    verify(vaultService).findByKey(mockRequest().getRequestURI() + "/" + mockVaultEntity().key, mockToken());
   }
 
 

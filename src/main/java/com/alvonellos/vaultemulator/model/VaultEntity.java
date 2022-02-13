@@ -12,20 +12,10 @@ import javax.persistence.Id;
 @Entity(name = "VAULT")
 @JsonPropertyOrder({"key", "secret"})
 public class VaultEntity {
-  @Id @JsonProperty private String key;
-  @JsonProperty private String secret;
+  @Id @JsonProperty public String key;
+  @JsonProperty public String secret;
 
   public VaultEntity() {}
-
-  @JsonGetter("key")
-  public String getKey() {
-    return this.key;
-  }
-
-  @JsonGetter("secret")
-  public String getValue() {
-    return this.secret;
-  }
 
   public VaultEntity(String key, String secret) {
     this.key = key;

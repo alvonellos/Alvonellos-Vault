@@ -107,7 +107,7 @@ public class VaultController implements InitializingBean {
    * @param request the servlet request
    * @return
    */
-  @PostMapping(value = "**", consumes = "application/json", produces = "application/json")
+  @PostMapping(value = "**", consumes = "application/json;charset=UTF-8", produces = "application/json;charset=UTF-8")
   public ResponseEntity<VaultRequest> postEntity(
       @RequestHeader HttpHeaders headers,
       @RequestHeader(name = "X-Vault-Token") String token,

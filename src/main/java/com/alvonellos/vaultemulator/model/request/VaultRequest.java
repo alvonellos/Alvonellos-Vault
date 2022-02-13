@@ -9,9 +9,8 @@ import lombok.Data;
 
 @Data
 public class VaultRequest  {
-    @JsonProperty
     private String key;
-    @JsonProperty private String secret;
+    private String secret;
 
     public VaultRequest() {}
 
@@ -41,7 +40,7 @@ public class VaultRequest  {
     }
 
     public VaultRequest(VaultEntity vaultEntity) {
-        this.key = vaultEntity.getKey();
-        this.secret = vaultEntity.getValue();
+        this.key = vaultEntity.key;
+        this.secret = vaultEntity.secret;
     }
 }
