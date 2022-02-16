@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "c1491603-b9db-40fa-bb17-ef9f50b9c4ee",
+		"name": "VaultEmulator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List All",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Vault-Token",
+						"value": "TOKEN",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "localhost:80/v1/vault",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"v1",
+						"vault"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Secret",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-Vault-Token",
+						"value": "TOKEN",
+						"type": "default"
+					},
+					{
+						"key": "X-Vault-Namespace",
+						"value": "/secret/",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "localhost:80/v1/vault/adminKey",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"v1",
+						"vault",
+						"adminKey"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Secret",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-Vault-Token",
+						"value": "TOKEN",
+						"type": "default"
+					},
+					{
+						"key": "X-Vault-Request",
+						"value": "true",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key\":\"adminKey\",\n    \"secret\": \"testing\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:80/v1/vault/secret",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"v1",
+						"vault",
+						"secret"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:80/v1/health",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"v1",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clear",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "X-Vault-Token",
+						"value": "TEST",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "localhost:80/v1/vault/clear",
+					"host": [
+						"localhost"
+					],
+					"port": "80",
+					"path": [
+						"v1",
+						"vault",
+						"clear"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
