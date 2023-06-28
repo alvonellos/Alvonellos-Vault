@@ -11,7 +11,7 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity(name = "VAULT")
+@Entity(name = "ve")
 @JsonPropertyOrder({"key", "secret"})
 public class VaultEntity {
   @Id @JsonProperty public String key;
