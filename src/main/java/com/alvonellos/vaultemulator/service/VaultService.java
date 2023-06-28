@@ -21,7 +21,7 @@ public class VaultService implements InitializingBean {
 
   private final VaultRepository vaultRepository;
   // Load the vault path from the properties file
-  @Value("${com.alvonellos.vaultemulator.vaultpath}")
+  @Value("${com.alvonellos.vault.vaultpath}")
   String vaultPath;
 
   /**

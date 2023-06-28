@@ -18,11 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("${com.alvonellos.vaultemulator.vaultpath}")
+@RequestMapping("${com.alvonellos.vault.vaultpath}")
 @Log
 public class VaultController implements InitializingBean {
 
-  @Value("${com.alvonellos.vaultemulator.vaultpath}")
+  @Value("${com.alvonellos.vault.vaultpath}")
   String vaultPath;
 
   private final VaultRepository vaultRepository;
