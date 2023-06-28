@@ -1,1 +1,1 @@
-web: java -jar target/vault-1.0.0-SNAPSHOT.jar
+web: java -jar target/vault-0.0.1-SNAPSHOT.jar
