@@ -1,11 +1,13 @@
 package com.alvonellos.vaultemulator.model;
 
+import com.alvonellos.vaultemulator.model.convertor.AttributeEncryptor;
 import com.alvonellos.vaultemulator.model.request.VaultRequest;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -13,7 +15,8 @@ import javax.persistence.Id;
 @JsonPropertyOrder({"key", "secret"})
 public class VaultEntity {
   @Id @JsonProperty public String key;
-  @JsonProperty public String secret;
+  @JsonProperty @Convert(converter = AttributeEncryptor.class)
+  public String secret;
 
   public VaultEntity() {}
 
